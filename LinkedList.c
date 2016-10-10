@@ -19,6 +19,15 @@ char print_list(struct node* n){
   }
   return 1;
 }
+
+struct node* free_list(struct node* n){
+  if(n->next){
+    free_list(n->next);
+  }
+  free(n);
+  return n;
+}
+
 int main(){
   struct node* i = insert_front(0, 'a');
   char a;
@@ -26,5 +35,7 @@ int main(){
     i = insert_front(i,a);
   }
   print_list(i);
+  free_list(i);
+  printf("*i: %d\n",*i);
   return 0;
 }

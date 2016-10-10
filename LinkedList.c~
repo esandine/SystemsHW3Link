@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {char c; struct node* next;};
+
+struct node* insert_front(struct node* front, char data){
+  struct node* n = (struct node*)malloc(sizeof(struct node));
+  (*n).c = data;
+  (*n).next=front;
+  return n;
+}
+
+char print_list(struct node* n){
+  if(n->next){
+    printf("%c, ", n->c);
+    print_list(n->next);
+  }else{
+    printf("%c\n",n->c);
+  }
+  return 1;
+}
+
+struct node* free_list(struct node* n){
+  if(n->next){
+    free_list(n->next);
+  }
+  free(n);
+  return n;
+}
+
+int main(){
+  struct node* i = insert_front(0, 'a');
+  char a;
+  for(a = 'b'; a<'z'+1; a++){
+    i = insert_front(i,a);
+  }
+  print_list(i);
+  i=free_list(i);
+  print_list(i);
+  return 0;
+}
