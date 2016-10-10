@@ -9,9 +9,22 @@ struct node* insert_front(struct node* front, char data){
   (*n).next=front;
   return n;
 }
+
+char print_list(struct node* n){
+  if(n->next){
+    printf("%c, ", n->c);
+    print_list(n->next);
+  }else{
+    printf("%c\n",n->c);
+  }
+  return 1;
+}
 int main(){
   struct node* i = insert_front(0, 'a');
-  i = insert_front(i, 'A');
-  printf("&insert_front(0, 'a'): %c \n", (*(*i).next).c);
+  char a;
+  for(a = 'b'; a<'z'+1; a++){
+    i = insert_front(i,a);
+  }
+  print_list(i);
   return 0;
 }
